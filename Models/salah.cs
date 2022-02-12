@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Paramdic.Models
 {
-    public class Mediator : ApplicationUser
+    public class salah
     {
-
+        public string shehab { get; set; }
     }
 }
