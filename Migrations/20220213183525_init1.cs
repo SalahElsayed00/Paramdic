@@ -3,7 +3,7 @@ using System;
 
 namespace Paramdic.Migrations
 {
-    public partial class introductionconnection : Migration
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Paramdic.Models;
 using Paramdic.ViewModels;
 using System.Threading.Tasks;
 
@@ -7,10 +8,10 @@ namespace Paramdic.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -29,7 +30,7 @@ namespace Paramdic.Controllers
             if (ModelState.IsValid)
             {
                 //mapping between IdentityUser class And RegisterVM class
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email
@@ -69,7 +70,7 @@ namespace Paramdic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM model,string returnUrl)
+        public async Task<IActionResult> Login(LoginVM model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -92,12 +93,12 @@ namespace Paramdic.Controllers
                 {
                     TempData["error"] = "Required Confirm Email ";
                 }
-                
+
             }
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> Logout(IdentityUser user)
+        public async Task<IActionResult> Logout(ApplicationUser user)
         {
             if (user != null)
             {
@@ -119,7 +120,7 @@ namespace Paramdic.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.GetUserAsync(User);
+                ApplicationUser user = await userManager.GetUserAsync(User);
 
                 if (user == null)
                 {
@@ -138,7 +139,7 @@ namespace Paramdic.Controllers
             }
             return View(model);
         }
-        
-       }
-    
+
+    }
+
 }

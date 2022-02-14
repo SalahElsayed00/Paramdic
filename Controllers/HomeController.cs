@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Paramdic.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +15,7 @@ namespace Paramdic.Controllers
         {
             _logger = logger;
         }
-        
+
         public IActionResult Index()
         {
             return View();

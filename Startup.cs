@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Paramdic.Data;
+using Paramdic.Models;
 
 namespace Paramdic
 {
@@ -24,9 +25,9 @@ namespace Paramdic
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-            { options.UseSqlServer(Configuration.GetConnectionString("connectionstring")); });
+            { options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 3;
@@ -34,11 +35,11 @@ namespace Paramdic
                 options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-             
+
             // customize
-            services.Configure<DataProtectionTokenProviderOptions>(options => 
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
             { options.TokenLifespan = System.TimeSpan.FromDays(5); });
-                
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +57,7 @@ namespace Paramdic
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -65,7 +66,7 @@ namespace Paramdic
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");            
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

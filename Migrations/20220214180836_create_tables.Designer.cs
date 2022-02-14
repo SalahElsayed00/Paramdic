@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Paramdic.Data;
 
 namespace Paramdic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214180836_create_tables")]
+    partial class create_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,10 +84,6 @@ namespace Paramdic.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -137,8 +135,6 @@ namespace Paramdic.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -244,9 +240,8 @@ namespace Paramdic.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NationalId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NationalId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("NationalImagePath")
                         .IsRequired()
@@ -303,7 +298,7 @@ namespace Paramdic.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RegionId")
+                    b.Property<int?>("RegionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -359,44 +354,6 @@ namespace Paramdic.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("socialStatuses");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("NationalImagePath")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PersonalImage")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("SocialStatusId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("GenderId");
-
-                    b.HasIndex("SocialStatusId");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -479,55 +436,14 @@ namespace Paramdic.Migrations
 
             modelBuilder.Entity("Paramdic.Models.City", b =>
                 {
-                    b.HasOne("Paramdic.Models.Region", "region")
+                    b.HasOne("Paramdic.Models.Region", null)
                         .WithMany("cities")
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("region");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Paramdic.Models.City", "city")
-                        .WithMany("User")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Paramdic.Models.Gender", "gender")
-                        .WithMany("User")
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Paramdic.Models.SocialStatus", "socialStatus")
-                        .WithMany("User")
-                        .HasForeignKey("SocialStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("city");
-
-                    b.Navigation("gender");
-
-                    b.Navigation("socialStatus");
+                        .HasForeignKey("RegionId");
                 });
 
             modelBuilder.Entity("Paramdic.Models.Category", b =>
                 {
                     b.Navigation("aidrequesteds");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.City", b =>
-                {
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.Gender", b =>
-                {
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Paramdic.Models.Region", b =>
@@ -538,8 +454,6 @@ namespace Paramdic.Migrations
             modelBuilder.Entity("Paramdic.Models.SocialStatus", b =>
                 {
                     b.Navigation("aidrequested");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

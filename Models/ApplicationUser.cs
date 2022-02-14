@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramdic.Models
 {
-    public class Mediator:IdentityUser
+    public class CustomUser : IdentityUser
     {
-        public string Address { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        public string Gender { get; set; }
+        [Required, Display(Name = "National Number")]
+        public string NationalId { get; set; }
 
-        public string Occupation { get; set; }
+        [Required, Display(Name = "National Image")]
+        public byte[] NationalImagePath { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
+        [Required, Display(Name = "Personal Image")]
+        public byte[] PersonalImage { get; set; }
+
+        public int GenderId { get; set; }
+        public Gender gender { get; set; }
+
+        public int SocialStatusId { get; set; }
+        public SocialStatus socialStatus { get; set; }
+
+        public int CityId { get; set; }
+        public City city { get; set; }
     }
 }
