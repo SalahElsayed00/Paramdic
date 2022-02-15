@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Paramdic.Models;
+using Paramdic.Data;
 using Paramdic.ViewModels;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Paramdic.Controllers
 {
@@ -10,17 +12,20 @@ namespace Paramdic.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly DataContext context;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,DataContext context )
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.context = context;
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var gender = context.genders.ToList();   
+            return View(gender);
         }
 
         [HttpPost]
@@ -32,7 +37,11 @@ namespace Paramdic.Controllers
                 //mapping between IdentityUser class And RegisterVM class
                 ApplicationUser user = new ApplicationUser
                 {
-                    UserName = model.Email,
+                    Name = model.FristName +" "+ model.LastName,
+                    gender = model.gender,
+                    city = model.city,
+                    socialStatus = model.socialStatus,
+                    UserName = model.Name,
                     Email = model.Email
                 };
                 //Created new user in IdentityUser table 

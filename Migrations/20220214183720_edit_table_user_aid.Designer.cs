@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Paramdic.Data;
 
 namespace Paramdic.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214183720_edit_table_user_aid")]
+    partial class edit_table_user_aid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,6 +172,7 @@ namespace Paramdic.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalId")
@@ -182,6 +185,7 @@ namespace Paramdic.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SocialStatusId")
@@ -198,7 +202,7 @@ namespace Paramdic.Migrations
 
                     b.HasIndex("StatusID");
 
-                    b.ToTable("aidrequesteds");
+                    b.ToTable("Aidrequested");
                 });
 
             modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
@@ -326,7 +330,7 @@ namespace Paramdic.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("cities");
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("Paramdic.Models.Gender", b =>
@@ -375,21 +379,6 @@ namespace Paramdic.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("socialStatuses");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("statuses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -446,13 +435,13 @@ namespace Paramdic.Migrations
             modelBuilder.Entity("Paramdic.Models.Aidrequested", b =>
                 {
                     b.HasOne("Paramdic.Models.Category", "category")
-                        .WithMany()
+                        .WithMany("aidrequesteds")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Paramdic.Models.SocialStatus", "SocialStatus")
-                        .WithMany()
+                        .WithMany("aidrequested")
                         .HasForeignKey("SocialStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -473,19 +462,19 @@ namespace Paramdic.Migrations
             modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
                 {
                     b.HasOne("Paramdic.Models.City", "city")
-                        .WithMany()
+                        .WithMany("User")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Paramdic.Models.Gender", "gender")
-                        .WithMany()
+                        .WithMany("User")
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Paramdic.Models.SocialStatus", "socialStatus")
-                        .WithMany()
+                        .WithMany("User")
                         .HasForeignKey("SocialStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -500,12 +489,39 @@ namespace Paramdic.Migrations
             modelBuilder.Entity("Paramdic.Models.City", b =>
                 {
                     b.HasOne("Paramdic.Models.Region", "region")
-                        .WithMany()
+                        .WithMany("cities")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("region");
+                });
+
+            modelBuilder.Entity("Paramdic.Models.Category", b =>
+                {
+                    b.Navigation("aidrequesteds");
+                });
+
+            modelBuilder.Entity("Paramdic.Models.City", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Paramdic.Models.Gender", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Paramdic.Models.Region", b =>
+                {
+                    b.Navigation("cities");
+                });
+
+            modelBuilder.Entity("Paramdic.Models.SocialStatus", b =>
+                {
+                    b.Navigation("aidrequested");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

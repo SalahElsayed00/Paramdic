@@ -9,7 +9,7 @@ using Paramdic.Data;
 
 namespace Paramdic.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20220214182355_Add_Application_User_Table")]
     partial class Add_Application_User_Table
     {

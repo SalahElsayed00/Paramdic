@@ -9,7 +9,7 @@ using Paramdic.Data;
 
 namespace Paramdic.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20220213183525_init1")]
     partial class init1
     {

@@ -8,6 +8,5 @@ namespace Paramdic.Models
 
         public string Name { get; set; }
 
-        public IEnumerable<Aidrequested> aidrequesteds { get; set; }
     }
 }

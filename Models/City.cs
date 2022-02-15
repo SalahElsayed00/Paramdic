@@ -11,6 +11,6 @@ namespace Paramdic.Models
         public int RegionId { get; set; }
         public Region region { get; set; }
 
-        public IEnumerable<ApplicationUser> User { get; set; }
+       
     }
 }

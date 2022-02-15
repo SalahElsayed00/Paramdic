@@ -3,18 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Paramdic.Models
 {
-    public class CustomUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
-        [Required]
+
         public string Name { get; set; }
 
-        [Required, Display(Name = "National Number")]
         public string NationalId { get; set; }
 
-        [Required, Display(Name = "National Image")]
         public byte[] NationalImagePath { get; set; }
 
-        [Required, Display(Name = "Personal Image")]
         public byte[] PersonalImage { get; set; }
 
         public int GenderId { get; set; }

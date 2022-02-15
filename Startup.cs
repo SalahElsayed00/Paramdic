@@ -24,7 +24,7 @@ namespace Paramdic
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<DataContext>(options =>
             { options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -33,7 +33,7 @@ namespace Paramdic
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 0;
                 options.SignIn.RequireConfirmedEmail = true;
-            }).AddEntityFrameworkStores<ApplicationDbContext>()
+            }).AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
 
             // customize

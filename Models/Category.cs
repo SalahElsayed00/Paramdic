@@ -9,6 +9,6 @@ namespace Paramdic.Models
 
         [Required]
         public string Name { get; set; }
-        public IEnumerable<Aidrequested> aidrequesteds { get; set; }
+        
     }
 }

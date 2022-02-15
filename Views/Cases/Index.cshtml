@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Aidrequested>
+@{
+    ViewData["Title"] = "Cases";
+}
+
+<h1>Cases</h1>
+<hr />
+
+<button class="btn btn-outline-primary"><i class="bi bi-person-plus"></i> Create</button>
+<br />
+@if (!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> No Cases Found
+    </div>
+}
+else
+{ 
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.DateOfBirth)</th>
+            <th>@Html.DisplayNameFor(m => m.PhoneNumber)</th>
+            <th>@Html.DisplayNameFor(m => m.CategoryId)</th>
+            <th>@Html.DisplayNameFor(m => m.SocialStatusId)</th>
+            <th>@Html.DisplayNameFor(m => m.StatusID)</th>
+            <th>@Html.DisplayNameFor(m => m.NationalId)</th>
+            <th>@Html.DisplayNameFor(m => m.Daterequested)</th>
+
+        </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model)
+      {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.DateOfBirth</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.CategoryId</td>
+            <td>@item.SocialStatusId</td>
+            <td>@item.StatusID</td>
+            <td>@item.NationalId</td>
+            <td>@item.Daterequested</td>
+        </tr>
+      }
+    </tbody>
+</table>
+}

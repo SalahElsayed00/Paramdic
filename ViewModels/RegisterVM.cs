@@ -1,12 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Paramdic.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramdic.ViewModels
 {
     public class RegisterVM
     {
+        [Display(Name ="Frist Name")]
+        public string FristName { get; set; }
 
-        [Required, Display(Name = "User Name")]
-        public string UserName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        public string Name { get; set; }
+
+        public Gender gender { get; set; }
+
+        public SocialStatus socialStatus { get; set; }
+
+        public City city { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }

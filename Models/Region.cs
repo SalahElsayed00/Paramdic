@@ -9,6 +9,5 @@ namespace Paramdic.Models
         [Required]
         public string Name { get; set; }
 
-        public IEnumerable<City> cities { get; set; }
     }
 }
