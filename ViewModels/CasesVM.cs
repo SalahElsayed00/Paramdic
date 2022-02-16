@@ -10,6 +10,8 @@ namespace Paramdic.ViewModels
     public class CasesVM
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         [Required ,DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }

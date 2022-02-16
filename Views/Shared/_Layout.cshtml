@@ -44,19 +44,19 @@
                             {
 
 
-                               
+
                                 <li class="nav-item dropdown">
                                     <div class="btn-group">
                                         <a class=" dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                                             @User.Identity.Name
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-lg-right">
-                                            <a class="dropdown-item"  asp-controller="Account" asp-action="Profile">Profile</a>
-                                            <a class="dropdown-item"  asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-                                            <a class="dropdown-item"  asp-controller="Account" asp-action="Logout">Logout</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
                                         </div>
                                     </div>
-                                    
+
                                 </li>
                             }
 
@@ -80,5 +80,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
+        @await Component.InvokeAsync("NToastNotify");
     </body>
 </html>

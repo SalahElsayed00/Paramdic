@@ -6,7 +6,7 @@
 <h1>Cases</h1>
 <hr />
 
-<a class="btn btn-outline-primary" asp-action="Create" asp-controller="Cases"><i class="bi bi-person-plus"></i> Create</a>
+<a class="btn btn-outline-primary" asp-action="Create" asp-controller="Cases"><i class="bi bi-person-plus"></i> Create New Cases</a>
 <hr />
 @if (!Model.Any())
 {
@@ -17,21 +17,27 @@
 else
 {
 
-    @foreach (var item in Model)
+    @foreach (var Case in Model)
     {
 
 
         <div class="card mb-3">
             <div class="row g-0">
-                <div class="col-md-4" style="min-height:200px; background-image:url(data:image\/*;base64,@(Convert.ToBase64String(item.PersonalImage))">
+                <div class="col-md-4 image" style="min-height:250px; background-image:url(data:image\/*;base64,@(Convert.ToBase64String(Case.PersonalImage))">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => item.Name):</span> @item.Name</h5>
-                            <h5 class="card-title phone"><span style="color: cadetblue;">@Html.DisplayNameFor(m => item.PhoneNumber):</span> @item.PhoneNumber</h5>
-                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => item.SocialStatusId):</span> @item.SocialStatusId</h5>
-                            <p class="card-text text-justify">@(item.Feedback.Length > 650 ? $"{item.Feedback.Substring(0,650)}....": item.Feedback)</p>
+                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Case.Name):</span> @Case.Name</h5>
+                            <h5 class="card-title phone"><span style="color: cadetblue;">@Html.DisplayNameFor(m => Case.PhoneNumber):</span> @Case.PhoneNumber</h5>
+                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Case.CategoryId):</span> @Case.category.Name</h5>
+                            <h5 class="card-title" style=" position: absolute; left: 460px; top: 51px;"><span style="color: cadetblue;">@Html.DisplayNameFor(m => Case.SocialStatusId):</span> @Case.SocialStatus.Name</h5>
+                            <p class="card-text text-justify">@(Case.Feedback.Length > 380 ? $"{Case.Feedback.Substring(0,380)}....": Case.Feedback)</p>
+                        </div>
+                        <div class="links">
+                            <a asp-action="Details" asp-route-id="@Case.Id" class=" btn  btn-outline-info"><i class="bi bi-calendar3-range"></i> Details</a>
+                            <a asp-action="Edit" asp-route-id="@Case.Id" class="btn btn-outline-primary"><i class="bi bi-pen"></i> Edit</a>
+                            <a asp-action="Delete" asp-route-id="@Case.Id" class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</a>
                         </div>
                     </div>
                 </div>

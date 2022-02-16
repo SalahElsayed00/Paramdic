@@ -1,0 +1,55 @@
+﻿@model Cases
+@{
+    ViewData["Title"] = $"Details- {Model.Name}";
+}
+
+<h1>Details</h1>
+<hr />
+<div class="card mb-3">
+  <img src="data:image\/*;base64,@(Convert.ToBase64String(Model.PersonalImage))" style="max-height:500px;" class="card-img-top image" alt="@Model.Name">
+  <div class="card-body">
+
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item text-center">
+              <a asp-action="Index" class=" btn  btn-outline-info"><i class="bi bi-calendar3-range"></i> Cancel</a>
+              <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary"><i class="bi bi-pen"></i> Edit</a>
+              <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</a>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.Name):</span> @Model.Name</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.SocialStatusId):</span> @Model.SocialStatus.Name</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.CategoryId):</span> @Model.category.Name</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.status):</span> @Model.status.Name</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.PhoneNumber):</span> @Model.PhoneNumber</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.DateOfBirth):</span> @Model.DateOfBirth</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.Daterequested):</span> @Model.Daterequested</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.NationalId):</span> @Model.NationalId</h5>
+          </li>
+          <li class="list-group-item">
+              <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.Name):</span> @Model.Name</h5>
+          </li>
+          <li class="list-group-item">
+              <p class="card-text"><span style="color:cadetblue">@Html.DisplayNameFor(m => Model.Feedback):</span> @Model.Feedback</p>
+          </li>
+
+      </ul>
+
+  </div>
+</div>
+
+
+

@@ -73,3 +73,17 @@ body {
     text-align: end !important;
     margin-top: -40px !important;
 }
+.links {
+    position: absolute !important;
+    left: 190px !important;
+    top: 200px !important;
+}
+.image {
+    background-size:100%;
+    transition:all 0.3s ease-in-out;
+    background-position:center;
+}
+.image:hover {
+    background-size: 120%;
+    transition: all 1s ease-in-out
+}

@@ -24,8 +24,8 @@ namespace Paramdic.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            var gender = context.genders.ToList();   
-            return View(gender);
+            //var gender = context.genders.ToList();   
+            return View();
         }
 
         [HttpPost]
