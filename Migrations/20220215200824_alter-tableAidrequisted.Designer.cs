@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Paramdic.Data;
 
 namespace Paramdic.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220215200824_alter-tableAidrequisted")]
+    partial class altertableAidrequisted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,6 +152,57 @@ namespace Paramdic.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Paramdic.Models.Aidrequested", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Daterequested")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NationalId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("NationalImagePath")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PersonalImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SocialStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SocialStatusId");
+
+                    b.HasIndex("StatusID");
+
+                    b.ToTable("aidrequesteds");
+                });
+
             modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -240,57 +293,6 @@ namespace Paramdic.Migrations
                     b.HasIndex("SocialStatusId");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.Cases", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Daterequested")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Feedback")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("NationalImagePath")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PersonalImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SocialStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("SocialStatusId");
-
-                    b.HasIndex("StatusID");
-
-                    b.ToTable("cases");
                 });
 
             modelBuilder.Entity("Paramdic.Models.Category", b =>
@@ -443,6 +445,33 @@ namespace Paramdic.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Paramdic.Models.Aidrequested", b =>
+                {
+                    b.HasOne("Paramdic.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Paramdic.Models.SocialStatus", "SocialStatus")
+                        .WithMany()
+                        .HasForeignKey("SocialStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Paramdic.Models.Status", "status")
+                        .WithMany()
+                        .HasForeignKey("StatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("category");
+
+                    b.Navigation("SocialStatus");
+
+                    b.Navigation("status");
+                });
+
             modelBuilder.Entity("Paramdic.Models.ApplicationUser", b =>
                 {
                     b.HasOne("Paramdic.Models.City", "city")
@@ -468,33 +497,6 @@ namespace Paramdic.Migrations
                     b.Navigation("gender");
 
                     b.Navigation("socialStatus");
-                });
-
-            modelBuilder.Entity("Paramdic.Models.Cases", b =>
-                {
-                    b.HasOne("Paramdic.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Paramdic.Models.SocialStatus", "SocialStatus")
-                        .WithMany()
-                        .HasForeignKey("SocialStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Paramdic.Models.Status", "status")
-                        .WithMany()
-                        .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("category");
-
-                    b.Navigation("SocialStatus");
-
-                    b.Navigation("status");
                 });
 
             modelBuilder.Entity("Paramdic.Models.City", b =>

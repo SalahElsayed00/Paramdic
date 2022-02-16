@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Paramdic.Models
 {
-    public class Aidrequested
+    public class Cases
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
 
         public string NationalId { get; set; }
-
+        
         public DateTime DateOfBirth { get; set; }
 
         public string Feedback { get; set; }
@@ -31,7 +31,7 @@ namespace Paramdic.Models
 
         [Display(Name = "Status")]
         public int StatusID { get; set; }
-        public City status { get; set; }
+        public Status status { get; set; }
 
 
 

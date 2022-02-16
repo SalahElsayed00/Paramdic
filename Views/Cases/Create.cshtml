@@ -1,0 +1,103 @@
+﻿@model Paramdic.ViewModels.CasesVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Cases</h1>
+
+<hr />
+<div class="row justify-content-between">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NationalId" class="control-label"></label>
+                <input asp-for="NationalId" class="form-control" />
+                <span asp-validation-for="NationalId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group ">
+                <label asp-for="SocialStatusId" class="control-label"></label>
+                <select class="form-control" asp-for="SocialStatusId" asp-items="@(new SelectList(Model.SocialStatus,"Id","Name"))">
+                    <option></option>
+                </select>
+                <span asp-validation-for="SocialStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Category,"Id","Name"))">
+                    <option></option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label" for="start"></label>
+                <input asp-for="DateOfBirth" type="date" id="start" name="trip-start"
+                       value="mm-dd-yyyy"
+                       min="1940-01-01" max="2090-1-1" class="form-control">
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <!-- Custom Bootstrap File Input -->
+            <div class="custom-file mb-4">
+                <input id="image1" asp-for="NationalImagePath" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                <label asp-for="NationalImagePath" class="custom-file-label" for="customFile"></label>
+                <span asp-validation-for="NationalImagePath" class="text-danger"></span>
+            </div>
+
+            <div class="custom-file mb-4">
+                <input id="image2" asp-for="PersonalImage" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                <label asp-for="PersonalImage" class="custom-file-label" for="customFile"></label>
+                <span asp-validation-for="PersonalImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Feedback" class="control-label"></label>
+                <textarea style="resize:none" asp-for="Feedback" class="form-control" maxlength="2500" rows="4"></textarea>
+                <span asp-validation-for="Feedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-success mr-4"><i class="bi bi-check"></i> Save</button>
+                <a class="btn btn-outline-info" asp-action="Index"><i class="bi bi-x"></i> Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#image1').on('change', function () {
+                var selectedfile = $(this).val().split('\\').pop();
+                $(this).siblings('label').text(selectedfile);
+                // show image toside form
+                //var imagecontainer = $('imageone-container');
+                //var image = window.URL.createObjectURL(this.find[0]);
+                //imagecontainer.removeClass('d-none');
+                //imagecontainer.find('img').attr('src', image);
+            });
+            $('#image2').on('change', function () {
+                var selectedfile = $(this).val().split('\\').pop();
+                $(this).siblings('label').text(selectedfile);
+                // show image toside form
+                //var imagecontainer = $('imagetwo-container');
+                //var image = window.URL.createObjectURL(this.find[0]);
+                //imagecontainer.removeClass('d-none');
+                //imagecontainer.find('img').attr('src', image);
+            });
+        });
+    </script>
+}
+

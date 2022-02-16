@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Aidrequested>
+﻿@model IEnumerable<Cases>
 @{
     ViewData["Title"] = "Cases";
 }
@@ -6,8 +6,8 @@
 <h1>Cases</h1>
 <hr />
 
-<button class="btn btn-outline-primary"><i class="bi bi-person-plus"></i> Create</button>
-<br />
+<a class="btn btn-outline-primary" asp-action="Create" asp-controller="Cases"><i class="bi bi-person-plus"></i> Create</a>
+<hr />
 @if (!Model.Any())
 {
     <div class="alert alert-warning" role="alert">
@@ -15,35 +15,28 @@
     </div>
 }
 else
-{ 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(m => m.Name)</th>
-            <th>@Html.DisplayNameFor(m => m.DateOfBirth)</th>
-            <th>@Html.DisplayNameFor(m => m.PhoneNumber)</th>
-            <th>@Html.DisplayNameFor(m => m.CategoryId)</th>
-            <th>@Html.DisplayNameFor(m => m.SocialStatusId)</th>
-            <th>@Html.DisplayNameFor(m => m.StatusID)</th>
-            <th>@Html.DisplayNameFor(m => m.NationalId)</th>
-            <th>@Html.DisplayNameFor(m => m.Daterequested)</th>
+{
 
-        </tr>
-    </thead>
-    <tbody>
-      @foreach (var item in Model)
-      {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.DateOfBirth</td>
-            <td>@item.PhoneNumber</td>
-            <td>@item.CategoryId</td>
-            <td>@item.SocialStatusId</td>
-            <td>@item.StatusID</td>
-            <td>@item.NationalId</td>
-            <td>@item.Daterequested</td>
-        </tr>
-      }
-    </tbody>
-</table>
+    @foreach (var item in Model)
+    {
+
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4" style="min-height:200px; background-image:url(data:image\/*;base64,@(Convert.ToBase64String(item.PersonalImage))">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => item.Name):</span> @item.Name</h5>
+                            <h5 class="card-title phone"><span style="color: cadetblue;">@Html.DisplayNameFor(m => item.PhoneNumber):</span> @item.PhoneNumber</h5>
+                            <h5 class="card-title"><span style="color:cadetblue">@Html.DisplayNameFor(m => item.SocialStatusId):</span> @item.SocialStatusId</h5>
+                            <p class="card-text text-justify">@(item.Feedback.Length > 650 ? $"{item.Feedback.Substring(0,650)}....": item.Feedback)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+ 
 }

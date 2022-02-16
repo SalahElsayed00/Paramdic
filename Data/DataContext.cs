@@ -14,6 +14,6 @@ namespace Paramdic.Data
         public DbSet<SocialStatus> socialStatuses { get; set; }
         public DbSet<Status> statuses { get; set; }
         public DbSet<Category> categories { get; set; }
-        public DbSet<Aidrequested> aidrequesteds { get; set; }
+        public DbSet<Cases> cases { get; set; }
     }
 }
